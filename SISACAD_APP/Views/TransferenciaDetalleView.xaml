@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SISACAD_APP.Views.TransferenciaDetalleView"
+           
+             >
+    <!--<Grid RowDefinitions="auto,.7*">-->
+
+    <!--<Image Aspect="AspectFill" Source="titulo.png"/>
+        <Grid BackgroundColor="#243B55" Opacity=".9">
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Image Aspect="AspectFit" HeightRequest="100" WidthRequest="200" Margin="20,0,0,0" Source="historial_pagos.png" />
+        </Grid>
+        <Grid Grid.Row="1">-->
+
+    <ScrollView>
+        <Grid>
+       
+            <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0"  Fill="#E0EAFC"/>
+            <VerticalStackLayout Margin="15,0,15,0" >
+
+
+                <StackLayout>
+                    <HorizontalStackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="0,15,0,15">
+                        <!-- Paso 1 -->
+                        <Frame WidthRequest="40" HeightRequest="40" CornerRadius="20" BackgroundColor="#f44c6c" Padding="0">
+                            <Image Source="avance" VerticalOptions="Center" HorizontalOptions="Center" />
+                        </Frame>
+                        <BoxView WidthRequest="60" HeightRequest="2" BackgroundColor="#f44c6c" VerticalOptions="Center" />
+
+                        <!-- Paso 2 -->
+                        <Frame WidthRequest="40" HeightRequest="40" CornerRadius="20" BackgroundColor="#f4d3db" BorderColor="#f4d3db" Padding="0">
+                            <Image Source="paso_2" VerticalOptions="Center" HorizontalOptions="Center" />
+                        </Frame>
+
+
+                    </HorizontalStackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame   Grid.Row="0" Margin="10,10" CornerRadius="5" BorderColor="#43466e" HasShadow="True" BackgroundColor="#FCF4E0">
+                            <StackLayout>
+                                <Label Text="BENEFICIARIO"
+                                                 Padding="10,10,10,10"
+                                                TextColor="#43466e"
+                                                 FontSize="30" 
+                                                 HorizontalTextAlignment="Center"
+                                        />
+
+                                <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,Auto" >
+                                    <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Para" VerticalOptions="CenterAndExpand"  Margin="10,5,0,0"
+                                            FontSize="15" FontAttributes="Bold" TextColor="#43466e"/>
+                                    <Label Grid.Row="1" Grid.ColumnSpan="2" Text="INSTITUTO TECNOLOGICO SUPERIOR QUITO METROPOLITANO"
+                                                 FontSize="9.5" TextColor="#43466e"  Margin="10,5,0,0"/>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Cuenta Destino:" VerticalOptions="CenterAndExpand" Margin="10,30,10,10"
+                                                FontSize="15" FontAttributes="Bold" TextColor="#43466e"/>
+                                    <Picker x:Name="pickerCuenta" Grid.Row="1" Grid.Column="1"  Margin="10,30,10,10"
+                                                Title="Seleccione una opción" TitleColor="Black" Background="White" TextColor="#43466e">
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>PICHINCHA</x:String>
+                                                <x:String>OTROS</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                        <Frame  CornerRadius="5" Margin="10,10" Grid.Row="1" BorderColor="#43466e" HasShadow="False" BackgroundColor="#FCF4E0">
+                            <StackLayout>
+                                <Label Text="ORDENANTE"
+                                              TextColor="#43466e"
+                                              FontSize="30" 
+                                              HorizontalTextAlignment="Center"
+                                              Padding="10,10,10,10"/>
+
+                                <Grid RowDefinitions="*,*,*,*,*,*" ColumnDefinitions="Auto,Auto" RowSpacing="10">
+                                    <Label Grid.Row="0" Grid.Column="0" Text="Desde el Banco:"  Margin="10,5,0,0"
+                                             FontSize="15" FontAttributes="Bold" TextColor="#43466e" VerticalOptions="CenterAndExpand"/>
+                                    <Picker x:Name="pickerBanco" Grid.Row="0" Grid.Column="1"  Margin="10,5,0,0"
+                                             Title="Seleccione una opción"  TitleColor="Black" Background="White" TextColor="#43466e"
+            >
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>PICHINCHA</x:String>
+                                                <x:String>OTROS</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+                                    </Picker>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="Valor Transacción:" VerticalOptions="CenterAndExpand"
+                                                   FontSize="15" FontAttributes="Bold" TextColor="#43466e" Margin="10,5,0,0"/>
+                                    <Label x:Name="ValorTrans" Grid.Row="1" TextColor="#43466e" Grid.Column="1" Background="White"  VerticalOptions="FillAndExpand" Text="{Binding Total}" />
+                                    <Label Grid.Row="2" Grid.Column="0" Text="Fecha Transacción:" VerticalOptions="CenterAndExpand"
+                                                    FontSize="15" FontAttributes="Bold" TextColor="#43466e" Margin="10,5,0,0"/>
+                                    <DatePicker x:Name="fechaInfo" Grid.Row="2" Grid.Column="1" Background="White"  DateSelected="fechaInfo_DateSelected" Margin="10,5,0,0" TextColor="#43466e">
+
+                                    </DatePicker>
+
+                                    <Label Grid.Row="3" Grid.ColumnSpan="2" Text="N° Documento/Referencia" VerticalOptions="CenterAndExpand"
+                                                    FontSize="15" FontAttributes="Bold" TextColor="#43466e" Margin="10,5,0,0"  />
+                                    <Entry x:Name="numRef" Grid.Row="4" Grid.ColumnSpan="2"  TextColor="#43466e" Background="White"  VerticalOptions="FillAndExpand" Text="{Binding Referencia}" Keyboard="Numeric"/>
+
+                                    <Label Grid.Row="5" Grid.Column="0" Text="Cargar Imagen" VerticalOptions="CenterAndExpand" Margin="10,5,0,0"
+                                                   FontSize="15" FontAttributes="Bold" TextColor="#43466e" />
+                                    <Grid ColumnDefinitions="Auto,Auto" Grid.Row="5" Grid.Column="1">
+                                        <ImageButton x:Name="foto" Source="camara.png" Grid.Row="0" Grid.Column="0" Margin="10,5,0,0"
+                                                     WidthRequest="50" HeightRequest="50" BackgroundColor="Transparent" />
+                                        <ImageButton x:Name="archivo" Source="carpeta.png" Grid.Row="0" Grid.Column="1" Margin="10,5,0,0"
+                                                    WidthRequest="50" HeightRequest="50" BackgroundColor="Transparent" Clicked="archivo_Clicked"/>
+                                    </Grid>
+
+
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+
+
+                    <Image x:Name="Photo"  Grid.ColumnSpan="2"  />
+
+
+
+                    <Button Text="Agregar compra"
+                                     Margin="15,25,15,15"
+                                     BackgroundColor="#243B55" 
+                                     TextColor="White" 
+                                      HeightRequest="60"
+                                     Clicked="btn_guardar_Clicked"
+                                     x:Name="btn_guardar"
+                 />
+
+                </StackLayout>
+
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+
+
+    <!--</Grid>
+    </Grid>-->
+</ContentPage>
+

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SISACAD_APP.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SISACAD_APP.Views"
+    Title="SISACAD_APP"
+    Background="#243B55"
+    Shell.ForegroundColor="Black"
+    Shell.FlyoutBackdrop="Black"
+    Shell.TitleColor="Black"
+    Shell.FlyoutBackgroundColor="#E0EAFC"
+    Shell.UnselectedColor="Black"
+    Shell.TabBarForegroundColor="Black"
+    Shell.TabBarIsVisible="False">
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Background="#E0EAFC">
+            
+            <Grid Margin="0,60,0,60">
+                <!-- Circular Image with Dashed Border -->
+                <Frame
+            WidthRequest="175"
+            HeightRequest="175"
+            CornerRadius="85"
+            BorderColor="Gray"
+            BackgroundColor="Transparent"
+            Padding="0"
+            HasShadow="False"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
+                    <Image Source="log_ingreso.png"
+                   Aspect="AspectFill" Background="White"
+                   WidthRequest="175"
+                   HeightRequest="175"/>
+                </Frame>
+
+                <!-- Text overlays -->
+                <Grid>
+                  
+                </Grid>
+            </Grid>
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout Background="#E0EAFC">
+            <ImageButton Source="cerrar_sesion.png" Margin="0,60,0,60" HeightRequest="50" Clicked="ImageButton_Clicked"/>
+           
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
+   
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" >
+
+        <ShellContent ContentTemplate="{DataTemplate local:MenuPrincipal}" Title="Inicio" Icon="panel_pagos.png"/>
+        <ShellContent ContentTemplate="{DataTemplate local:HistorialPagosView}" Title="Historial de Pagos" Icon="historial_pago.png"/>
+        <ShellContent ContentTemplate="{DataTemplate local:TranferenciasyDepositosView}" Title="Transferencias" Icon="transferencias.png"/>
+        <ShellContent ContentTemplate="{DataTemplate local:FacturasView}" Title="Facturas" Icon="facturas.png"/>
+        <ShellContent ContentTemplate="{DataTemplate local:ListaDepositosView}" Title="Historial de Depósitos" Icon="depositos.png"/>
+    </FlyoutItem>
+
+
+
+
+</Shell>

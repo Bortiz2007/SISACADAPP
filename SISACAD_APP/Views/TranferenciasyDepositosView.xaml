@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            
+             x:Class="SISACAD_APP.Views.TranferenciasyDepositosView"
+             >
+
+
+
+    <!--<Grid RowDefinitions="auto,.7*">
+
+        <Image Aspect="AspectFill" Source="titulo.png"/>
+        <Grid BackgroundColor="#243B55" Opacity=".9">
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Image Aspect="AspectFit" HeightRequest="100" WidthRequest="200" Margin="20,0,0,0" Source="tranferencias_depositos.png" />
+        </Grid>
+        <Grid Grid.Row="1" >-->
+
+    <ScrollView>
+        <Grid>
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                 CornerRadius="30,30,0,0"
+                      Fill="#E0EAFC"/>
+            <VerticalStackLayout>
+                <StackLayout>
+                    <HorizontalStackLayout Spacing="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="0,15,0,15">
+                        <!-- Paso 1 -->
+                        <Frame WidthRequest="40" HeightRequest="40" CornerRadius="20" BackgroundColor="#f44c6c" Padding="0">
+                            <Image Source="paso_1" VerticalOptions="Center" HorizontalOptions="Center" />
+                        </Frame>
+                        <BoxView WidthRequest="60" HeightRequest="2" BackgroundColor="#f44c6c" VerticalOptions="Center" />
+
+                        <!-- Paso 2 -->
+                        <Frame WidthRequest="40" HeightRequest="40" CornerRadius="20" BackgroundColor="#f4d3db" BorderColor="#f4d3db" Padding="0">
+                            
+                        </Frame>
+                        
+
+                    </HorizontalStackLayout>
+
+                    <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*" IsVisible="{Binding MostrarElementos}">
+                        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="25,10,5,10" >
+                            <RoundRectangle Grid.Row="1" CornerRadius="25" Fill="#243B55" />
+                            <SearchBar Placeholder="Busqueda de estudiantes"  TextColor="White" PlaceholderColor="White" CancelButtonColor="White" x:Name="idBusqueda" 
+                            TextChanged="OnSearchBarTextChanged" IsVisible="{Binding MostrarElementos}"></SearchBar>
+                        </Grid>
+                        <!--<Picker x:Name="CarreraPicker" Grid.Row="1" Grid.ColumnSpan="2" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="#243B55"  Title="Seleccione la carrera" TitleColor="OliveDrab"
+                         FontSize="Small" ItemsSource="{Binding DatosEstudiante}" ItemDisplayBinding="{Binding FullCarrera}" SelectedItem="{Binding SelectedCarrera}"
+                        ></Picker>-->
+                      
+                        <Label  Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding FullCarrera}" IsVisible="false" HorizontalOptions="Center" TextColor="Black"></Label>
+                        <Label  Grid.Row="1" Grid.ColumnSpan="2" x:Name="lblCodCarrera" IsVisible="false" Text="{Binding CodigoCarrera}"></Label>
+                        <ImageButton Source="informacion.png"  Grid.Row="1" Grid.ColumnSpan="1" WidthRequest="45" HeightRequest="45" HorizontalOptions="Center" Clicked="ImageButton_Clicked" />
+                        <Button  Text="Buscar"  Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center"  VerticalOptions="Center" x:Name="btnBuscar"
+                       BackgroundColor="#243B55"  Clicked="btnBuscar_Clicked"
+                       TextColor="White" 
+                       Margin="0,28,0,0" 
+                       HeightRequest="40"
+                      />
+                    </Grid>
+                    <Grid  IsVisible="{Binding H1}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#376887" Padding="0" Margin="10" >
+                            <StackLayout  >
+
+                                <Label Text="MATRICULAS Y COLEGIATURAS" 
+                                         HorizontalTextAlignment="Center"
+                                         FontSize="19"
+                                         TextColor="White"/>
+                                <CollectionView Grid.ColumnSpan="2"   ItemsSource="{Binding MatriYPens}"  x:Name="ccView" >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#FFFBED" Padding="0" Margin="10,3,10,5">
+                                                <StackLayout>
+                                                    <Label Text="{Binding producto}" TextColor="#243B55" Grid.ColumnSpan="2" x:Name="codPr"  FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                    <Label Text="{Binding efdCodigoProducto}"  FontSize="16" FontAttributes="Bold"  IsVisible="False"/>
+
+                                                    <Grid >
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0.5*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackLayout Grid.Column="0">
+                                                            <CheckBox VerticalOptions="FillAndExpand"   BackgroundColor="Transparent" x:Name="chkCarrito" CheckedChanged="chkCarrito_CheckedChanged"  Color="#376887"  HorizontalOptions="Center" />
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="1" >
+
+                                                            <Label Text="Valor" FontAttributes="Bold" x:Name="codP"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Descuento" FontAttributes="Bold"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Saldo" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="Black" HorizontalTextAlignment="Center" FontSize="Small" />
+                                                            <Label Text="Valor a Pagar" TextColor="Black" Margin="0,5,0,0"  Grid.Column="0" Grid.Row="1"  FontAttributes="Bold"  HorizontalTextAlignment="Center" FontSize="Small" VerticalTextAlignment="Center"  IsVisible="true"/>
+
+
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="2" >
+                                                            <Label Text="{Binding efdValorProducto, StringFormat='{}{0:C}'}"  FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="End"  IsVisible="False"/>
+                                                            <Label Text="{Binding efdTotal, StringFormat='{}{0:C}'}"  Grid.Column="1" Grid.Row="0"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="Start" />
+                                                            <Label Text="{Binding efdDescuento, StringFormat='{}{0:C}'}"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalTextAlignment="Start" IsVisible="False"/>
+                                                            <Entry Text="{Binding efdTotalEnviado}"  Grid.Column="1" Grid.Row="1" Background="#376887"   FontSize="Small"  Margin="20,0"   TextColor="White"  HorizontalTextAlignment="Start" />
+
+                                                        </StackLayout>
+                                                        <!--<ImageButton Source="carrito.png"  HeightRequest="60" BackgroundColor="Transparent" 
+                                                                HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand"
+                                                                Command="{Binding Path=BindingContext.AgregarCarrito,Source={x:Reference ccView}}"
+                                                                CommandParameter="{Binding .}"
+                                                                ></ImageButton>-->
+                                                        <!--<ImageButton Source="carrito_resta.png" HeightRequest="60" BackgroundColor="Transparent" 
+                                                                      HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" 
+                                                                      Command="{Binding Path=BindingContext.QuitarCarrito,Source={x:Reference ccView}}"
+                                                                      CommandParameter="{Binding .}" 
+                                                                      >
+                                                                    </ImageButton>-->
+
+
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Frame>
+
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </StackLayout>
+
+                        </Frame>
+
+
+                    </Grid>
+                    <Grid  IsVisible="{Binding H2}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#376887" Padding="0" Margin="10" >
+                            <StackLayout>
+
+                                <Label Text="EDUCACIÓN CONTINUA" 
+                                     HorizontalTextAlignment="Center"
+                                     FontSize="19"
+                                     TextColor="White"/>
+                                <CollectionView Grid.ColumnSpan="2"   ItemsSource="{Binding EducaConti}"  x:Name="ccView1" >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#FFFBED" Padding="0" Margin="10,3,10,5">
+                                                <StackLayout>
+                                                    <Label Text="{Binding producto}" TextColor="#243B55" Grid.ColumnSpan="2" x:Name="codPr"  FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                    <Label Text="{Binding efdCodigoProducto}"  FontSize="16" FontAttributes="Bold"  IsVisible="False"/>
+
+                                                    <Grid >
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0.5*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackLayout Grid.Column="0">
+                                                            <CheckBox VerticalOptions="FillAndExpand"   BackgroundColor="Transparent" x:Name="chkCarritoI" CheckedChanged="chkCarrito_CheckedChanged"  Color="#376887"  HorizontalOptions="Center" />
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="1" >
+
+                                                            <Label Text="Valor" FontAttributes="Bold" x:Name="codP"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Descuento" FontAttributes="Bold"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Saldo" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="Black" HorizontalTextAlignment="Center" FontSize="Small" />
+                                                            <Label Text="Valor a Pagar" TextColor="Black" Margin="0,5,0,0"  Grid.Column="0" Grid.Row="1"  FontAttributes="Bold"  HorizontalTextAlignment="Center" FontSize="Small" VerticalTextAlignment="Center"  IsVisible="true"/>
+
+
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="2" >
+                                                            <Label Text="{Binding efdValorProducto, StringFormat='{}{0:C}'}"  FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="End"  IsVisible="False"/>
+                                                            <Label Text="{Binding efdTotal, StringFormat='{}{0:C}'}"  Grid.Column="1" Grid.Row="0"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="Start" />
+                                                            <Label Text="{Binding efdDescuento, StringFormat='{}{0:C}'}"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalTextAlignment="Start" IsVisible="False"/>
+                                                            <Entry Text="{Binding efdTotalEnviado}"   Grid.Column="1" Grid.Row="1" Background="#376887"   FontSize="Small"  Margin="20,0"   TextColor="White"  HorizontalTextAlignment="Start" />
+
+                                                        </StackLayout>
+                                                        <!--<ImageButton Source="carrito.png"  HeightRequest="60" BackgroundColor="Transparent" 
+                           HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand"
+                           Command="{Binding Path=BindingContext.AgregarCarrito,Source={x:Reference ccView}}"
+                           CommandParameter="{Binding .}"
+                           ></ImageButton>-->
+                                                        <!--<ImageButton Source="carrito_resta.png" HeightRequest="60" BackgroundColor="Transparent" 
+                                 HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" 
+                                 Command="{Binding Path=BindingContext.QuitarCarrito,Source={x:Reference ccView}}"
+                                 CommandParameter="{Binding .}" 
+                                 >
+                               </ImageButton>-->
+
+
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Frame>
+
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </StackLayout>
+
+                        </Frame>
+
+
+                    </Grid>
+                    <Grid IsVisible="{Binding H3}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#376887" Padding="0" Margin="10" >
+                            <StackLayout>
+
+                                <Label Text="TITULACIÓN" 
+HorizontalTextAlignment="Center"
+FontSize="19"
+TextColor="White"/>
+                                <CollectionView Grid.ColumnSpan="2"   ItemsSource="{Binding TitulacionT}"  x:Name="ccView2" >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#FFFBED" Padding="0" Margin="10,3,10,5">
+                                                <StackLayout>
+                                                    <Label Text="{Binding producto}" TextColor="#243B55" Grid.ColumnSpan="2" x:Name="codPrT"  FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                    <Label Text="{Binding efdCodigoProducto}"  FontSize="16" FontAttributes="Bold"  IsVisible="False"/>
+
+                                                    <Grid >
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0.5*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackLayout Grid.Column="0">
+                                                            <CheckBox VerticalOptions="FillAndExpand"   BackgroundColor="Transparent" x:Name="chkCarritoTitu" CheckedChanged="chkCarrito_CheckedChanged"  Color="#376887"  HorizontalOptions="Center" />
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="1" >
+
+                                                            <Label Text="Valor" FontAttributes="Bold" x:Name="codP"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Descuento" FontAttributes="Bold"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Saldo" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="Black" HorizontalTextAlignment="Center" FontSize="Small" />
+                                                            <Label Text="Valor a Pagar" TextColor="Black" Margin="0,5,0,0"  Grid.Column="0" Grid.Row="1"  FontAttributes="Bold"  HorizontalTextAlignment="Center" FontSize="Small" VerticalTextAlignment="Center"  IsVisible="true"/>
+
+
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="2" >
+                                                            <Label Text="{Binding efdValorProducto, StringFormat='{}{0:C}'}"  FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="End"  IsVisible="False"/>
+                                                            <Label Text="{Binding efdTotal, StringFormat='{}{0:C}'}"  Grid.Column="1" Grid.Row="0"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="Start" />
+                                                            <Label Text="{Binding efdDescuento, StringFormat='{}{0:C}'}"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalTextAlignment="Start" IsVisible="False"/>
+                                                            <Entry Text="{Binding efdTotalEnviado}"   Grid.Column="1" Grid.Row="1" Background="#376887"   FontSize="Small"  Margin="20,0"   TextColor="White"  HorizontalTextAlignment="Start" />
+
+                                                        </StackLayout>
+                                                        <!--<ImageButton Source="carrito.png"  HeightRequest="60" BackgroundColor="Transparent" 
+                           HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand"
+                           Command="{Binding Path=BindingContext.AgregarCarrito,Source={x:Reference ccView}}"
+                           CommandParameter="{Binding .}"
+                           ></ImageButton>-->
+                                                        <!--<ImageButton Source="carrito_resta.png" HeightRequest="60" BackgroundColor="Transparent" 
+                                 HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" 
+                                 Command="{Binding Path=BindingContext.QuitarCarrito,Source={x:Reference ccView}}"
+                                 CommandParameter="{Binding .}" 
+                                 >
+                               </ImageButton>-->
+
+
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Frame>
+
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </StackLayout>
+
+                        </Frame>
+
+
+                    </Grid>
+                    <Grid  IsVisible="{Binding H4}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#376887" Padding="0" Margin="10" >
+                            <StackLayout>
+
+                                <Label Text="OTROS PAGOS" 
+                                        HorizontalTextAlignment="Center"
+                                        FontSize="19"
+                                        TextColor="White"/>
+                                <CollectionView Grid.ColumnSpan="2"   ItemsSource="{Binding OtroPagos}"  x:Name="ccView3" >
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame   BorderColor="Transparent" HasShadow="False" BackgroundColor="#FFFBED" Padding="0" Margin="10,3,10,5">
+                                                <StackLayout>
+                                                    <Label Text="{Binding producto}" TextColor="#243B55" Grid.ColumnSpan="2" x:Name="codPrOtro"  FontSize="16" FontAttributes="Bold" HorizontalOptions="Center"/>
+                                                    <Label Text="{Binding efdCodigoProducto}"  FontSize="16" FontAttributes="Bold"  IsVisible="False"/>
+
+                                                    <Grid >
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="0.5*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackLayout Grid.Column="0">
+                                                            <CheckBox VerticalOptions="FillAndExpand"   BackgroundColor="Transparent" x:Name="chkCarrito" CheckedChanged="chkCarrito_CheckedChanged"  Color="#376887"  HorizontalOptions="Center" />
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="1" >
+
+                                                            <Label Text="Valor" FontAttributes="Bold" x:Name="codP"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Descuento" FontAttributes="Bold"  HorizontalTextAlignment="End" FontSize="Small"  IsVisible="False"/>
+                                                            <Label Text="Saldo" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="Black" HorizontalTextAlignment="Center" FontSize="Small" />
+                                                            <Label Text="Valor a Pagar" TextColor="Black" Margin="0,5,0,0"  Grid.Column="0" Grid.Row="1"  FontAttributes="Bold"  HorizontalTextAlignment="Center" FontSize="Small" VerticalTextAlignment="Center"  IsVisible="true"/>
+
+
+                                                        </StackLayout>
+                                                        <StackLayout Grid.Column="2" >
+                                                            <Label Text="{Binding efdValorProducto, StringFormat='{}{0:C}'}"  FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="End"  IsVisible="False"/>
+                                                            <Label Text="{Binding efdTotal, StringFormat='{}{0:C}'}"  Grid.Column="1" Grid.Row="0"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalOptions="Start" />
+                                                            <Label Text="{Binding efdDescuento, StringFormat='{}{0:C}'}"   FontSize="Small"  Margin="20,0"  TextColor="Black"   HorizontalTextAlignment="Start" IsVisible="False"/>
+                                                            <Entry Text="{Binding efdTotalEnviado}"  Grid.Column="1" Grid.Row="1" Background="#376887"   FontSize="Small"  Margin="20,0"   TextColor="White"  HorizontalTextAlignment="Start" />
+
+                                                        </StackLayout>
+                                                        <!--<ImageButton Source="carrito.png"  HeightRequest="60" BackgroundColor="Transparent" 
+                                HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand"
+                                Command="{Binding Path=BindingContext.AgregarCarrito,Source={x:Reference ccView}}"
+                                CommandParameter="{Binding .}"
+                                ></ImageButton>-->
+                                                        <!--<ImageButton Source="carrito_resta.png" HeightRequest="60" BackgroundColor="Transparent" 
+                                      HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" 
+                                      Command="{Binding Path=BindingContext.QuitarCarrito,Source={x:Reference ccView}}"
+                                      CommandParameter="{Binding .}" 
+                                      >
+                                    </ImageButton>-->
+
+
+                                                    </Grid>
+                                                </StackLayout>
+                                            </Frame>
+
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </StackLayout>
+
+                        </Frame>
+
+
+                    </Grid>
+                    <Grid IsVisible="{Binding Transaccion}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="Total: "
+                                  TextColor="#43466e"
+                                  FontSize="30" Grid.Column="0" 
+                                  HorizontalTextAlignment="Center"
+                                  FontAttributes="Bold"
+                                 />
+                        <Label Text="{Binding Total, StringFormat='{}{0:C}'}"
+                                 TextColor="#43466e"
+                                 FontSize="30" Grid.Column="1"
+                                 FontAttributes="Bold"
+                                 VerticalTextAlignment="Center"
+                                />
+                    </Grid>
+
+
+                    <Button Text="Continuar"  IsVisible="{Binding Transaccion}"
+                                    Margin="15,25,15,0"
+                                    BackgroundColor="#243B55" 
+                                    TextColor="White" 
+                                     HeightRequest="60"
+                                    Clicked="Button_Clicked"
+                               />
+                </StackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+
+
+    <!--</Grid>
+    </Grid>-->
+
+
+
+</ContentPage>

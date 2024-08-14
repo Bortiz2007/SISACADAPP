@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="SISACAD_APP.Views.FacturasView"
+             >
+
+    <!--<Grid RowDefinitions="auto,.7*">
+
+        <Image Aspect="AspectFill" Source="titulo.png"/>
+        <Grid BackgroundColor="#243B55" Opacity=".9">
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Image Aspect="AspectFit" HeightRequest="100" WidthRequest="200" Margin="20,0,0,0" Source="historial_pagos.png" />
+        </Grid>-->
+    <!--<Grid Grid.Row="1">-->
+    <ScrollView>
+        <Grid>
+
+            <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="#E0EAFC"/>
+            <VerticalStackLayout Margin="15,0,15,0" >
+
+                <StackLayout>
+
+
+
+
+
+                    <StackLayout>
+                        <Grid RowDefinitions="auto,auto,auto,auto" ColumnDefinitions="*,*">
+                            <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="25,10,5,10">
+                                <RoundRectangle Grid.Row="1" CornerRadius="25" Fill="#243B55" />
+                                <SearchBar Placeholder="Busqueda de estudiantes"  TextColor="White" PlaceholderColor="White" CancelButtonColor="White" x:Name="idBusqueda" 
+                                                TextChanged="OnSearchBarTextChanged" IsVisible="{Binding MostrarElementos}"></SearchBar>
+                            </Grid>
+                            <Label Text="Fecha Inicio" Grid.Row="1" Grid.Column="0" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                            <DatePicker x:Name="fechaInicio"  Date="{Binding Fecha_inicio}" Grid.Row="1" Grid.Column="1"  Background="White"  DateSelected="fechaInicio_DateSelected" Margin="10,5,0,0" TextColor="#43466e">
+
+                            </DatePicker>
+                            <Label Text="Fecha Fin" Grid.Row="2" Grid.Column="0" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+
+                            <DatePicker x:Name="fechaFin" Date="{Binding Fecha_fin}" Background="White" Grid.Row="2" Grid.Column="1"  DateSelected="fechaFin_DateSelected" Margin="10,5,0,0" TextColor="#43466e">
+
+                            </DatePicker>
+                            <ImageButton Source="informacion.png"  Grid.Row="3" Grid.ColumnSpan="1" WidthRequest="45" HeightRequest="45" HorizontalOptions="Center" Clicked="ImageButton_Clicked" />
+                            <Button  Text="Buscar"  Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center"  VerticalOptions="Center"
+                                     BackgroundColor="#243B55"  Clicked="btnBuscar_Clicked"
+                                     TextColor="White" 
+                                     Margin="0,28,0,0" 
+                                     HeightRequest="40"
+                                    />
+                        </Grid>
+
+                        <CollectionView    ItemsSource="{Binding FacturasDetalle}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <mct:Expander x:Name="Exp"  Margin="10,15,10,0">
+                                        <mct:Expander.Header >
+                                            <Frame BorderColor="Black"  Padding="5" BackgroundColor="#C3E1DA">
+                                                <Grid ColumnDefinitions="auto,auto,auto" RowDefinitions="auto,auto,auto" BackgroundColor="#C3E1DA">
+                                                    <Label Text="Número Factura" TextColor="Black" Grid.Column="1" Grid.Row="0" HorizontalTextAlignment="Start" HorizontalOptions="Start" FontSize="Caption" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding NumeroFactura}" TextColor="Black" Grid.Column="2" Grid.Row="0" HorizontalTextAlignment="Start" Margin="10,0,0,0" VerticalTextAlignment="Center"/>
+                                                    <Label Text="Valor de Factura" TextColor="Black" Grid.Column="1" Grid.Row="1" FontAttributes="Bold" FontSize="Caption" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding ValorTotal, StringFormat='{}{0:C}'}" TextColor="Black" Grid.Column="2" Grid.Row="1"  HorizontalTextAlignment="Start" Margin="10,0,0,0"  VerticalTextAlignment="Center"/>
+                                                    <Label Text="Fecha Registro" TextColor="Black" Grid.Column="1" Grid.Row="2" FontAttributes="Bold" FontSize="Caption" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding FechaRegistro}" TextColor="Black" Grid.Column="2" Grid.Row="2"  HorizontalTextAlignment="Start" Margin="10,0,0,0" VerticalTextAlignment="Center"/>
+
+                                                    <ImageButton x:Name="foto" Source="telefono_inteligente.png" Grid.RowSpan="3" Grid.Column="0"  Margin="10"
+                                                            WidthRequest="45" HeightRequest="45" BackgroundColor="Transparent" />
+                                                </Grid>
+                                            </Frame>
+
+                                        </mct:Expander.Header>
+                                        <mct:Expander.Content>
+                                            <Grid Background="#C3E1DA">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="1*"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Header -->
+                                                <Label Grid.Row="0" Grid.Column="0" Text="Productos" HorizontalTextAlignment="Center" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
+
+                                                <!-- CollectionView for Producto -->
+                                                <CollectionView Grid.Row="1"  ItemsSource="{Binding Producto}" Background="#C3E1DA">
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Frame BorderColor="Transparent" CornerRadius="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="10" BackgroundColor="#FCF4E0">
+                                                                <StackLayout>
+                                                                    <!-- Producto como encabezado -->
+                                                                    <Label Text="{Binding ProductoF}" 
+                                                                               HorizontalTextAlignment="Center"
+                                                                               FontSize="Small" 
+                                                                               FontAttributes="Bold"
+                                                                               TextColor="Black"
+                                                                               />
+                                                                    <!-- Precio y Descuento como detalles -->
+                                                                    <StackLayout Orientation="Horizontal" Padding="10">
+                                                                        <Label Text="Precio:" 
+                                                                                   FontSize="Small" 
+                                                                                   FontAttributes="Bold"
+                                                                                   TextColor="Black"/>
+                                                                        <Label Text="{Binding Precio, StringFormat='{}{0:C}'}" 
+                                                                                   HorizontalTextAlignment="End"
+                                                                                   FontSize="Small" 
+                                                                                   TextColor="Black"/>
+                                                                    </StackLayout>
+                                                                    <StackLayout Orientation="Horizontal" Padding="10">
+                                                                        <Label Text="Descuento:" 
+                                                                                       FontSize="Small" 
+                                                                                       FontAttributes="Bold"
+                                                                                       TextColor="Black"/>
+                                                                        <Label Text="{Binding Descuento, StringFormat='{}{0:C}'}" 
+                                                                                       HorizontalTextAlignment="End"
+                                                                                       FontSize="Small" 
+                                                                                       TextColor="Black"/>
+                                                                    </StackLayout>
+                                                                </StackLayout>
+                                                            </Frame>
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                            </Grid>
+
+
+                                        </mct:Expander.Content>
+                                    </mct:Expander>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+
+
+                    </StackLayout>
+
+
+
+
+
+                </StackLayout>
+
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+    <!--</Grid>
+    </Grid>-->
+
+</ContentPage>

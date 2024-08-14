@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="SISACAD_APP.Views.MenuPrincipal"
+             
+             BackgroundColor="#FCF4E0">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="FilterButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="#000000" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="10,5" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid>
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                 CornerRadius="30,30,0,0"
+                      Fill="#E0EAFC"/>
+            <VerticalStackLayout Padding="20">
+
+                <Grid RowDefinitions="*,auto,auto,auto" ColumnDefinitions="*,*" IsVisible="{Binding CarruselView}">
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="25,10,5,10">
+                        <RoundRectangle Grid.Row="1" CornerRadius="25" Fill="#243B55" />
+                        <SearchBar Placeholder="Busqueda de estudiantes"  TextColor="White" PlaceholderColor="White" CancelButtonColor="White" x:Name="idBusqueda" 
+                                    TextChanged="OnSearchBarTextChanged" IsVisible="{Binding MostrarElementos}"></SearchBar>
+                    </Grid>
+                    
+                    <Label Text="Fecha Inicio" Grid.Row="1" Grid.Column="0" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                    <DatePicker x:Name="fechaInicio"  Date="{Binding Fecha_inicio}" Grid.Row="1" Grid.Column="1"  Background="White"  DateSelected="fechaInicio_DateSelected" Margin="10,5,0,0" TextColor="#43466e">
+
+                    </DatePicker>
+                    <Label Text="Fecha Fin" Grid.Row="2" Grid.Column="0" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+
+                    <DatePicker x:Name="fechaFin" Date="{Binding Fecha_fin}" Background="White" Grid.Row="2" Grid.Column="1"  DateSelected="fechaFin_DateSelected" Margin="10,5,0,0" TextColor="#43466e">
+
+                    </DatePicker>
+                    <ImageButton Source="informacion.png"  Grid.Row="3" Grid.ColumnSpan="1" WidthRequest="45" HeightRequest="45" HorizontalOptions="Center" Clicked="ImageButton_Clicked" />
+                    <Button  Text="Buscar"  Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center"  VerticalOptions="Center" x:Name="btnBuscar"
+                    BackgroundColor="#243B55"  Clicked="btnBuscar_Clicked"
+                    TextColor="White" 
+                    Margin="0,28,0,0" 
+                    HeightRequest="40"
+                   />
+                </Grid>
+
+                <Grid RowDefinitions="*,*,auto" ColumnDefinitions="*,*" BackgroundColor="Transparent" >
+                    <!-- Botón para ir al elemento anterior -->
+                    <ImageButton x:Name="btnAnterior" Source="siguiente.png"  HeightRequest="40" Background="Transparent"
+                    Clicked="Siguiente_Clicked" Grid.Row="2" Grid.Column="1" />
+
+                    <!-- CarouselView en el centro -->
+                    <CarouselView x:Name="carousel"   Background="Transparent" ItemsSource="{Binding PagosDetalleTotal}"
+                     Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" Margin="5,10,5,10">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                                    <!-- Título del Tipo de Producto -->
+                                    <Label Text="{Binding TipoProducto}" FontSize="Small" TextColor="Black" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,10"/>
+
+                                    <!-- CollectionView para mostrar las tarjetas -->
+                                    <CollectionView ItemsSource="{Binding DatosReportes}" HorizontalOptions="CenterAndExpand" 
+                                SelectionMode="None" ItemsLayout="HorizontalList">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame CornerRadius="10" HasShadow="False" Padding="10,5" BackgroundColor="{Binding Color}"
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" WidthRequest="110" HeightRequest="65" Margin="5">
+                                                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                                        <!-- Etiqueta para mostrar el Estado -->
+                                                        <Label Text="{Binding Estado}" FontAttributes="Bold" TextColor="White" FontSize="Micro" 
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                                                        <!-- Etiqueta para mostrar el Total -->
+                                                        <Label Text="{Binding Total, StringFormat='{}{0:C}'}" TextColor="White" FontSize="Small" 
+                                           HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                      
+                                                    </StackLayout>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+
+                    <!-- Botón para ir al siguiente elemento -->
+                    <ImageButton Source="anterior.png" x:Name="Siguiente"  HeightRequest="40" HorizontalOptions="Center" VerticalOptions="Center" 
+                        Clicked="btnAnterior_Clicked" Grid.Row="2" Grid.Column="0" Background="Transparent"/>
+
+
+                </Grid>
+
+
+
+
+
+                <Grid RowDefinitions="auto,auto" BackgroundColor="Transparent" Margin="0,10,0,15" IsVisible="{Binding PanelDeposito}">
+                
+                    <Label Text="ANÁLISIS DE DEPÓSITOS REGISTRADOS" Grid.Row="0" FontSize="Title" HorizontalTextAlignment="Center" TextColor="Black"/>
+                    <micro:ChartView x:Name="chName" HeightRequest="300" Margin="10,10,10,10" Grid.Row="1" ></micro:ChartView>
+                </Grid>
+                <Grid RowDefinitions="auto,auto" BackgroundColor="Transparent" Margin="0,10,0,15" IsVisible="{Binding PanelPago}">
+                    <Label Text="ANÁLISIS DE PAGOS" Grid.Row="0" FontSize="Title" HorizontalTextAlignment="Center" TextColor="Black"/>
+                    <micro:ChartView x:Name="chName1" HeightRequest="300" Margin="10,10,10,10" Grid.Row="1"  ></micro:ChartView>
+                </Grid>
+                <Grid RowDefinitions="auto,auto" BackgroundColor="Transparent" Margin="0,10,0,15" IsVisible="{Binding PanelProducto}">
+                    <Label Text="ANÁLISIS DE PRODUCTOS" Grid.Row="0" FontSize="Title" HorizontalTextAlignment="Center" TextColor="Black"/>
+                    <micro:ChartView x:Name="chName2" HeightRequest="300" Margin="10,10,10,10" Grid.Row="1"  ></micro:ChartView>
+                </Grid>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+
+
+
+
+</ContentPage>

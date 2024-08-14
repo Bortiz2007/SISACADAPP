@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34902.127
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SISACAD_APP", "SISACAD_APP\SISACAD_APP.csproj", "{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EFF60F4-90E7-4340-9E02-4729D6EFDE86}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C8A3A44-E96E-4D59-BBC4-18EB80BDB9A9}
+	EndGlobalSection
+EndGlobal

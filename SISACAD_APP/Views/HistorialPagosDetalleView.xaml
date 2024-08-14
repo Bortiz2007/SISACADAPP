@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SISACAD_APP.Views.HistorialPagosDetalleView"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             NavigationPage.HasBackButton="False"
+            Title="Detalle de Pagos"
+             >
+
+    <!--<Grid RowDefinitions="auto,.7*">
+   
+     <Image Aspect="AspectFill" Source="titulo.png"/>
+     <Grid BackgroundColor="#243B55" Opacity=".9">
+     </Grid>
+     <Grid ColumnDefinitions="*,*">
+         <Image Aspect="AspectFit" HeightRequest="100" WidthRequest="200" Margin="20,0,0,0" Source="historial_pagos.png" />
+     </Grid>
+     <Grid Grid.Row="1">-->
+    <ScrollView>
+        <Grid>
+            <RoundRectangle Margin="-5,-30,-5,-2"
+                         CornerRadius="30,30,0,0"
+                              Fill="#E0EAFC"/>
+            <VerticalStackLayout Margin="30,0,30,0" >
+
+                <StackLayout>
+
+                    <Picker x:Name="semestrePicker" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="#243B55"  Title="Seleccione que pagos desea visualizar" TitleColor="OliveDrab"
+                 FontSize="Small"  ItemsSource="{Binding FiltroItems}"
+                                       ItemDisplayBinding="{Binding Text}"
+                                       SelectedItem="{Binding SelectedFiltro}"
+                ></Picker>
+
+                    <Button Text="Buscar" x:Name="btnBuscar"
+                        BackgroundColor="Green"
+                        HorizontalOptions="Center"
+                        TextColor="White"
+                        Margin="0,20,0,0"
+                        Clicked="btnBuscar_Clicked"
+                        />
+
+                    <Grid Padding="10" RowSpacing="10" ColumnSpacing="20" BackgroundColor="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout Grid.Column="0" HorizontalOptions="Center">
+
+                            <RoundRectangle BackgroundColor="#0f9b0f" CornerRadius="50" HeightRequest="30" WidthRequest="30"></RoundRectangle>
+                            <Label Text="Pagado" FontSize="14" HorizontalOptions="Center" TextColor="#243B55"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="1" HorizontalOptions="Center">
+
+                            <RoundRectangle BackgroundColor="#93291E" CornerRadius="50" HeightRequest="30" WidthRequest="30"></RoundRectangle>
+                            <Label Text="Vencido" FontSize="14"  HorizontalOptions="Center" TextColor="#243B55"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="2" HorizontalOptions="Center">
+
+                            <RoundRectangle BackgroundColor="#00467F" CornerRadius="50" HeightRequest="30" WidthRequest="30"></RoundRectangle>
+                            <Label Text="Pendiente" FontSize="14"  HorizontalOptions="Center" TextColor="#243B55"/>
+                        </StackLayout>
+
+                        <StackLayout Grid.Column="3" HorizontalOptions="Center">
+
+                            <RoundRectangle BackgroundColor="#434343" CornerRadius="50" HeightRequest="30" WidthRequest="30"></RoundRectangle>
+                            <Label Text="Anulado" FontSize="14"  HorizontalOptions="Center" TextColor="#243B55"/>
+                        </StackLayout>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+
+                        <!--Classes List-->
+                        <CollectionView x:Name="ClassesCollectionView"  ItemsSource="{Binding PagosDetalle}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <mct:Expander x:Name="Exp" Padding="2"  Margin="0,5,0,0">
+                                        <mct:Expander.Header>
+
+                                            <Frame  BorderColor="{Binding efdNumeroCuota}" BackgroundColor="{Binding efdNumeroCuota}" Padding="0" CornerRadius="0">
+                                                <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*" BackgroundColor="{Binding efdNumeroCuota}">
+
+                                                    <Label Text="{Binding producto}" FontSize="13" FontAttributes="Bold" TextColor="White" Grid.ColumnSpan="2" Grid.Row="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                    <Label Text="Vencimiento:" FontAttributes="Bold" TextColor="White" Grid.Column="0" Grid.Row="1" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding efdFechaVencimiento}" TextColor="White" Grid.Column="1" Grid.Row="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                    <Label Text="{Binding efdCodigoEstadoDeuda}"  TextColor="White" Grid.Column="2" Grid.Row="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                                    <ImageButton x:Name="foto" Source="historial_pago.png" Grid.RowSpan="1" Grid.Column="3" 
+                                                                 WidthRequest="45" HeightRequest="45" BackgroundColor="Transparent" />
+                                                </Grid>
+                                            </Frame>
+                                        </mct:Expander.Header>
+                                        <mct:Expander.Content>
+                                            <Frame  BorderColor="Transparent" HasShadow="False"  BackgroundColor="#FFF9E6" CornerRadius="0">
+                                                <Grid>
+
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <StackLayout Grid.Column="0">
+                                                        <Label  Text= "Valor del Producto:" 
+                                                             HorizontalTextAlignment="End"
+                                                               FontSize="Small" 
+                                                               FontAttributes="Bold"
+                                                               TextColor="Black" 
+             
+                                                               />
+                                                        <Label  Text= "Descuento:" 
+                                                              HorizontalTextAlignment="End"
+                                                                FontSize="Small" 
+                                                                FontAttributes="Bold"
+                                                                TextColor="Black" 
+             
+                                                                />
+                                                        <Label  Text= "Beca:" 
+                                                              HorizontalTextAlignment="End"
+                                                                FontSize="Small" 
+                                                                FontAttributes="Bold"
+                                                                TextColor="Black" 
+             
+                                                                />
+                                                        <Label  Text= "Saldo:"
+                                                               HorizontalTextAlignment="End"
+                                                                  FontSize="Small" 
+                                                                        FontAttributes="Bold"
+                                                                  TextColor="Black" 
+                                                                  />
+                                                        <Label  Text= "Valor Pagado:" 
+                                                                FontSize="Small" 
+                                                                        FontAttributes="Bold"
+                                                                HorizontalTextAlignment="End"
+                                                                TextColor="Black" 
+                                                                />
+                                                        <Label  Text= "Fecha Pago:" 
+                                                                 FontSize="Small" 
+                                                                         FontAttributes="Bold"
+                                                                 HorizontalTextAlignment="End"
+                                                                 TextColor="Black" 
+                                                                 />
+                                                    </StackLayout>
+                                                    <StackLayout Grid.Column="1">
+                                                        <Grid ColumnDefinitions="*,auto">
+                                                            <StackLayout Grid.Column="0">
+                                                                <Label Text="{Binding efdValorProducto}"
+                   FontSize="Small" 
+                  Margin="20,0"
+                    
+                   TextColor="Black" 
+                   HorizontalOptions="Start" 
+                   />
+                                                                <Label Text="{Binding efdDescuento}"
+                    FontSize="Small" 
+                  Margin="20,0"
+                    TextColor="Black" 
+                    HorizontalOptions="Start" 
+                   />
+                                                                <Label Text="{Binding efdValorBeca}"
+                   FontSize="Small" 
+                    Margin="20,0"
+                   TextColor="Black" 
+                    HorizontalOptions="Start" 
+                   />
+                                                                <Label Text="{Binding efdTotalEnviado}"
+                   FontSize="Small" 
+                    Margin="20,0"
+                   TextColor="Black" 
+                    HorizontalOptions="Start" 
+                   />
+                                                                <Label Text="{Binding efdTotal}"
+                       FontSize="Small" 
+                        Margin="20,0"
+                       TextColor="Black" 
+                        HorizontalOptions="Start" 
+                       />
+              
+                                                            </StackLayout>
+                                                            <StackLayout Grid.Column="0">
+                                                                <Label Text="$" HorizontalTextAlignment="Start" TextColor="Black" Margin="10,0"  FontSize="Small" />
+                                                                <Label Text="$" HorizontalTextAlignment="Start" TextColor="Black" Margin="10,0"  FontSize="Small" />
+                                                                <Label Text="$" HorizontalTextAlignment="Start" TextColor="Black" Margin="10,0"  FontSize="Small" />
+                                                                <Label Text="$" HorizontalTextAlignment="Start" TextColor="Black" Margin="10,0"  FontSize="Small" />
+                                                                <Label Text="$" HorizontalTextAlignment="Start" TextColor="Black" Margin="10,0" FontSize="Small" />
+                                                            </StackLayout>
+
+                                                        </Grid>
+                                                        <Label Text="{Binding efdFechaPago}"
+     FontSize="Small" 
+      Margin="20,0"
+     TextColor="Black" 
+      HorizontalOptions="Start" 
+     />
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </mct:Expander.Content>
+                                    </mct:Expander>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </StackLayout>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+    <!--</Grid>
+</Grid>-->
+
+</ContentPage>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SISACAD_APP.Views.HistorialPagosView"
+             xmlns:viewModels="clr-namespace:SISACAD_APP.Views"
+             NavigationPage.HasBackButton="False"
+             BackgroundColor="white">
+
+
+
+
+    <!--<Grid RowDefinitions="auto,.7*">
+      
+        <Image Aspect="AspectFill" Source="titulo.png"/>
+        <Grid BackgroundColor="#243B55" Opacity=".9">
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Image Aspect="AspectFit" HeightRequest="100" WidthRequest="200" Margin="20,0,0,0" Source="historial_pagos.png" />
+        </Grid>
+        <Grid Grid.Row="1">-->
+   
+            <ScrollView>
+                <Grid>
+                    
+
+                    <RoundRectangle Margin="-5,-30,-5,-2"
+                        CornerRadius="30,30,0,0"
+                             Fill="#E0EAFC"/>
+                    <VerticalStackLayout Margin="15,0,15,0" >
+
+
+                        <StackLayout>
+                    <Grid RowDefinitions="*,auto" ColumnDefinitions="*,*">
+                        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="25,10,5,10">
+                            <RoundRectangle Grid.Row="1" CornerRadius="25" Fill="#243B55" />
+                            <SearchBar Placeholder="Busqueda de estudiantes"  TextColor="White" PlaceholderColor="White" CancelButtonColor="White" x:Name="idBusqueda" 
+                          TextChanged="OnSearchBarTextChanged" IsVisible="{Binding MostrarElementos}"></SearchBar>
+                        </Grid>
+
+
+                        <ImageButton Source="informacion.png"   Grid.Row="3" Grid.ColumnSpan="1" WidthRequest="45" HeightRequest="45" HorizontalOptions="Center" Clicked="ImageButton_Clicked" />
+                        <Button  Text="Buscar"  Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Center"  VerticalOptions="Center" x:Name="btnBuscar"
+                                          BackgroundColor="#243B55"  Clicked="btnBuscar_Clicked"
+                                          TextColor="White" 
+                                          Margin="0,28,0,0" 
+                                          HeightRequest="40" IsVisible="{Binding MostrarElementos}"
+                                         />
+                    </Grid>
+                    <Grid IsVisible="{Binding H1}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+
+
+                                <!--Classes List-->
+                                <!--<CollectionView Grid.Row="1" x:Name="ClassesCollectionView" IsVisible="true" ItemsSource="{Binding FiltroItems}" >
+             <CollectionView.ItemTemplate>
+                 <DataTemplate>-->
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid >
+                                        <ImageButton Source="pagos_n1.png" 
+                                     x:Name="btn1" AutomationId="btn1"
+                                     CornerRadius="100"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="FillAndExpand"
+                                     Clicked="btn_N1_Clicked"/>
+                                    </Grid>
+                                </Frame>
+                                <!--</DataTemplate>
+             </CollectionView.ItemTemplate>
+         </CollectionView>-->
+                            </Grid>
+                            <Grid IsVisible="{Binding H2}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid>
+                                        <ImageButton Source="pagos_n2.png"  x:Name="btn2" AutomationId="btn2"
+                                                 CornerRadius="100"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Clicked="btn_N1_Clicked" >
+                                        </ImageButton>
+
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                            <Grid IsVisible="{Binding H3}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid>
+                                        <ImageButton Source="pagos_n3.png"  x:Name="btn3"
+                                                 CornerRadius="100" AutomationId="btn3"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand"
+                                                        Clicked="btn_N1_Clicked" >
+                                            <ImageButton.GestureRecognizers>
+                                                <TapGestureRecognizer  />
+                                            </ImageButton.GestureRecognizers>
+                                        </ImageButton>
+
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                            <Grid IsVisible="{Binding H4}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid>
+                                        <ImageButton Source="pagos_n4.png"  x:Name="btn4"
+                                              CornerRadius="100" AutomationId="btn4"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="FillAndExpand"
+                                                        Clicked="btn_N1_Clicked" >
+
+                                        </ImageButton>
+
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                            <Grid IsVisible="{Binding H5}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid>
+                                        <ImageButton Source="pagos_n5.png"  x:Name="btn5"
+                                                CornerRadius="100" AutomationId="btn5"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand"
+                                                        Clicked="btn_N1_Clicked" >
+
+                                        </ImageButton>
+
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                            <Grid IsVisible="{Binding Hingles}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid>
+                                        <ImageButton Source="pagos_ingles.png"  x:Name="btnIng"
+                                               CornerRadius="100" AutomationId="btnIng"
+                                               VerticalOptions="FillAndExpand"
+                                               HorizontalOptions="FillAndExpand"
+                                                Clicked="btn_N1_Clicked" >
+
+                                        </ImageButton>
+
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                            <Grid IsVisible="{Binding Hotro}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Frame HeightRequest="200" WidthRequest="410" CornerRadius="5" BorderColor="Transparent" HasShadow="False" BackgroundColor="Transparent">
+                                    <Grid>
+                                        <ImageButton Source="pagos_otros.png"  x:Name="btnOtros"
+                                           CornerRadius="100" AutomationId="btnOtros"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="FillAndExpand"
+                                             Clicked="btn_N1_Clicked" >
+
+                                        </ImageButton>
+
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+
+                        </StackLayout>
+
+
+
+                    </VerticalStackLayout>
+
+                </Grid>
+            </ScrollView>
+        <!--</Grid>
+    </Grid>-->
+
+
+
+</ContentPage>
