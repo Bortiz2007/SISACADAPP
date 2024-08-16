@@ -48,16 +48,27 @@ public partial class ListaDepositosView : ContentPage
     }
     private async void btnBuscar_Clicked(object sender, EventArgs e)
     {
-        var loading = UserDialogs.Instance.Loading("Cargando...");
-        await Task.Delay(1000);
-        mp.Busqueda = String.IsNullOrEmpty(idBusqueda.Text) ? ServicioSession.GetCedula() : idBusqueda.Text;
-        await mp.BusquedaDepositosDetalle();
-        if (mp.DepositosDetalle.Count == 0)
+        if (mp.Fecha_inicio > mp.Fecha_fin)
         {
-            UserDialogs.Instance.Alert("Estimado usuario no existe al momento información para mostrar", "Informativo", "Aceptar", "@drawable/info.png");
+            UserDialogs.Instance.Alert("Estimado usuario la fecha inicial no puede ser mayor a la de fin", "Informativo", "Aceptar", "@drawable/info.png");
         }
-        await Task.Delay(1000);
-        loading.Dispose();
+        else if (mp.Fecha_fin < mp.Fecha_inicio)
+        {
+            UserDialogs.Instance.Alert("Estimado usuario la fecha fin no puede ser menor a la de inicio", "Informativo", "Aceptar", "@drawable/info.png");
+        }
+        else
+        {
+            var loading = UserDialogs.Instance.Loading("Cargando...");
+            await Task.Delay(1000);
+            mp.Busqueda = String.IsNullOrEmpty(idBusqueda.Text) ? ServicioSession.GetCedula() : idBusqueda.Text;
+            await mp.BusquedaDepositosDetalle();
+            if (mp.DepositosDetalle.Count == 0)
+            {
+                UserDialogs.Instance.Alert("Estimado usuario no existe al momento información para mostrar", "Informativo", "Aceptar", "@drawable/info.png");
+            }
+            await Task.Delay(1000);
+            loading.Dispose();
+        }
     }
 
     private async void semestrePicker_SelectedIndexChanged(object sender, EventArgs e)
@@ -108,6 +119,7 @@ public partial class ListaDepositosView : ContentPage
             {
                 command.Execute(item);
             }
+            await mp.BusquedaDepositosDetalle();
         }
     }
 }

@@ -82,7 +82,7 @@
                                                         <DataTemplate>
                                                             <Frame BorderColor="Transparent" CornerRadius="5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  Margin="10" BackgroundColor="#FCF4E0">
                                                                 <StackLayout>
-                                                                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                                                                    <Grid RowDefinitions="auto,*" ColumnDefinitions="*,*">
                                                                         <Label Text="{Binding DpdCodigoProducto}" Grid.ColumnSpan="2" Grid.Row="0"
                                                                     HorizontalTextAlignment="Center"
                                                                     FontSize="Body" 

@@ -59,8 +59,16 @@ namespace SISACAD_APP.Model
                 {
                    
                     UserDialogs.Instance.Alert("Registro con Exito", "Informativo", "Aceptar", "@drawable/info.png");
-                    Application.Current.MainPage = new AppShell();
-                    await Shell.Current.GoToAsync("listadoDepositos");
+                    if(ServicioSession.GetIdRol() == "4" || ServicioSession.GetIdRol() == "3")
+                    {
+                        Application.Current.MainPage = new AppShell();
+                        await Shell.Current.GoToAsync("listadoDepositos");
+                    }
+                    else
+                    {
+                        Application.Current.MainPage = new AppShell();
+                    }
+                    
                 }
                 else if (respuesta == "ERROR1")
                 {

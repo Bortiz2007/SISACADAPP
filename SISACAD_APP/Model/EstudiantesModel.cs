@@ -15,6 +15,8 @@ namespace SISACAD_APP.Model
         public string Nombre_carrera { get; set; }
         public string Periodo_academico { get; set; }
         public string FullCarrera { get; set; }
+        public string foto { get; set; }
+
     }
 
 }

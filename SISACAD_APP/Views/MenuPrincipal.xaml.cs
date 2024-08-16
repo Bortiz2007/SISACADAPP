@@ -20,7 +20,15 @@ public partial class MenuPrincipal : ContentPage
         InitializeComponent();
         mp = new MenuPrincipalViewModel(ServicioSession.GetCedula());
         fechaInicio.MaximumDate = DateTime.Today.Date;
-        fechaFin.MaximumDate = DateTime.Today.Date.AddDays(1);
+        if(ServicioSession.GetIdRol() == "4" || ServicioSession.GetIdRol() == "3")
+        {
+            fechaFin.MaximumDate = DateTime.Today.Date;
+        }
+        else
+        {
+            fechaFin.MaximumDate = DateTime.Today.Date.AddDays(1);
+        }
+       
         //lblHorarios.Text = ServicioSession.GetCedula();
         BindingContext = mp;
 
@@ -128,8 +136,20 @@ public partial class MenuPrincipal : ContentPage
     }
     private async void btnBuscar_Clicked(object sender, EventArgs e)
     {
-        mp.Busqueda = idBusqueda.Text;
-        CargarInformacion();
+        if(mp.Fecha_inicio > mp.Fecha_fin)
+        {
+            UserDialogs.Instance.Alert("Estimado usuario la fecha inicial no puede ser mayor a la de fin", "Informativo", "Aceptar", "@drawable/info.png");
+        }
+        else if(mp.Fecha_fin < mp.Fecha_inicio)
+        {
+            UserDialogs.Instance.Alert("Estimado usuario la fecha fin no puede ser menor a la de inicio", "Informativo", "Aceptar", "@drawable/info.png");
+        }
+        else
+        {
+            mp.Busqueda = idBusqueda.Text;
+            CargarInformacion();
+        }
+      
     }
     private void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
     {

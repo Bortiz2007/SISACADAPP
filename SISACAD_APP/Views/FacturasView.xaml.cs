@@ -20,8 +20,8 @@ public partial class FacturasView : ContentPage
 
     private async void Facturas_Appearing(object sender, EventArgs e)
     {
-      
-        mp.identificacion = ServicioSession.GetCedula();
+        mp.Busqueda = ServicioSession.GetCedula();
+        
         await mp.BusquedaFacturasDetalle();
 
     }
@@ -57,15 +57,28 @@ public partial class FacturasView : ContentPage
     }
     private async void btnBuscar_Clicked(object sender, EventArgs e)
     {
-        var loading = UserDialogs.Instance.Loading("Cargando...");
-        await Task.Delay(1000);
-        mp.Busqueda = String.IsNullOrEmpty(idBusqueda.Text) ? ServicioSession.GetCedula() : idBusqueda.Text;
-        mp.BusquedaFacturasDetalle();
-        if(mp.FacturasDetalle.Count> 0)
+
+        if (mp.Fecha_inicio > mp.Fecha_fin)
         {
-            UserDialogs.Instance.Alert("Estimado usuario no existe al momento información para mostrar", "Informativo", "Aceptar", "@drawable/info.png");
+            UserDialogs.Instance.Alert("Estimado usuario la fecha inicial no puede ser mayor a la de fin", "Informativo", "Aceptar", "@drawable/info.png");
         }
-        await Task.Delay(1000);
-        loading.Dispose();
+        else if (mp.Fecha_fin < mp.Fecha_inicio)
+        {
+            UserDialogs.Instance.Alert("Estimado usuario la fecha fin no puede ser menor a la de inicio", "Informativo", "Aceptar", "@drawable/info.png");
+        }
+        else
+        {
+            var loading = UserDialogs.Instance.Loading("Cargando...");
+   
+            mp.Busqueda = String.IsNullOrEmpty(idBusqueda.Text) ? ServicioSession.GetCedula() : idBusqueda.Text;
+            await mp.BusquedaFacturasDetalle();
+            if (mp.FacturasDetalle.Count == 0)
+            {
+                UserDialogs.Instance.Alert("Estimado usuario no existe al momento información para mostrar", "Informativo", "Aceptar", "@drawable/info.png");
+            }
+           
+            loading.Dispose();
+        }
+    
     }
 }

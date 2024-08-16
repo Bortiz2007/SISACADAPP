@@ -18,14 +18,14 @@ namespace SISACAD_APP.Model
     {
         #region VARIABLES
       
-        public DateTime _fecha_inicio = DateTime.Now.AddDays(-90);
+        public DateTime _fecha_inicio = ServicioSession.GetIdRol() == "4" || ServicioSession.GetIdRol() == "3"? DateTime.Now:DateTime.Now.AddDays(-90);
         public DateTime _fecha_fin = DateTime.Now;
         public List<DatosPagosDetalleM> _pagosDetalleTotal;
         List<ChartEntry> _panelPagos;
         List<ChartEntry> _panelDepositos;
         List<ChartEntry> _panelProductos;
         string _busqueda;
-        bool _mostrarElementos = false,_carruselView = true,_panelPago= true, _panelDeposito= true, _panelProducto = true;
+        bool _mostrarElementos = false,_carruselView = false, _panelPago= true, _panelDeposito= true, _panelProducto = true;
         #endregion
         #region OBJETOS
         public DateTime Fecha_inicio

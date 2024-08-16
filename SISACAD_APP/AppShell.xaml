@@ -54,7 +54,7 @@
         <ShellContent ContentTemplate="{DataTemplate local:MenuPrincipal}" Title="Inicio" Icon="panel_pagos.png"/>
         <ShellContent ContentTemplate="{DataTemplate local:HistorialPagosView}" Title="Historial de Pagos" Icon="historial_pago.png"/>
         <ShellContent ContentTemplate="{DataTemplate local:TranferenciasyDepositosView}" Title="Transferencias" Icon="transferencias.png"/>
-        <ShellContent ContentTemplate="{DataTemplate local:FacturasView}" Title="Facturas" Icon="facturas.png"/>
+        <ShellContent ContentTemplate="{DataTemplate local:FacturasView}" Title="Facturas" Icon="facturas.png" IsVisible="true"/>
         <ShellContent ContentTemplate="{DataTemplate local:ListaDepositosView}" Title="Historial de Depósitos" Icon="depositos.png"/>
     </FlyoutItem>
 
